@@ -1,7 +1,9 @@
 import { instance } from './axios-instance.ts';
+import { AxiosResponse } from 'axios';
+import { specializationType } from '../types/specializationTypes.ts';
 
 export const specializationsApi = {
-  getAllSpecializations() {
+  getAllSpecializations(): Promise<AxiosResponse<specializationType[]>> {
     return instance.get('specializations');
   },
 

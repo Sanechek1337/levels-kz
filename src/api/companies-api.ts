@@ -1,7 +1,9 @@
 import { instance } from './axios-instance.ts';
+import { AxiosResponse } from 'axios';
+import { companyType } from '../types/companyTypes.ts';
 
 export const companiesApi = {
-  getCompanies() {
+  getCompanies(): Promise<AxiosResponse<companyType[]>> {
     return instance.get('companies');
   },
 

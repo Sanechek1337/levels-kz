@@ -1,7 +1,9 @@
 import { instance } from './axios-instance.ts';
+import { AxiosResponse } from 'axios';
+import { salaryType } from '../types/salaryTypes.ts';
 
 export const salaryApi = {
-  getSalaries() {
+  getSalaries(): Promise<AxiosResponse<salaryType>> {
     return instance.get('salaries');
   },
 
@@ -18,7 +20,7 @@ export const salaryApi = {
     yac: number,
     grade: string,
     created: string
-  ) {
+  ): Promise<AxiosResponse<salaryType>> {
     return instance.post('salaries', {
       email,
       location,

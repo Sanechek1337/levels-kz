@@ -1,7 +1,9 @@
 import { instance } from './axios-instance.ts';
+import { AxiosResponse } from 'axios';
+import { locationType } from '../types/locationTypes.ts';
 
 export const locationsApi = {
-  getLocations() {
+  getLocations(): Promise<AxiosResponse<locationType[]>> {
     return instance.get('locations');
   },
 
