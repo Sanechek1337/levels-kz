@@ -7,6 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 import { RootState } from '../store/store.ts';
 import { deleteFromComparison } from '../store/slices/comparasionSlice.ts';
 
@@ -29,7 +30,8 @@ export const CompanyComparison = () => {
 
   return (
     <Stack alignItems="center" gap={4}>
-      <h2>Company Comparison</h2>
+      <Typography variant="h2">Company Comparison</Typography>
+
       <TableContainer
         component={Paper}
         sx={{ margin: '0 auto', width: 'fit-content' }}

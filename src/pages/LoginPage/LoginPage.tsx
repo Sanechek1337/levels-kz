@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import axios from 'axios';
-import styles from './LoginPage.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
+import Typography from '@mui/material/Typography';
 import { login } from '../../store/slices/authSlice.ts';
+import styles from './LoginPage.module.css';
 
 export default function LoginPage() {
   const dispatch = useDispatch();
@@ -28,37 +29,41 @@ export default function LoginPage() {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.card}>
-        <h2 className={styles.loginLabel}>Вход в аккаунт</h2>
-        <div className={styles.loginForm}>
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className={styles.input}
-            type="email"
-            name="email"
-            placeholder="Логин"
-            required
-          />
-          <input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className={styles.input}
-            type="password"
-            name="password"
-            placeholder="Пароль"
-            required
-          />
-          <button
-            className={styles.loginButton}
-            onClick={handleLogin}
-            type="submit"
-          >
-            Войти
-          </button>
+    <>
+      <Typography variant="h2">Login page</Typography>
+
+      <div className={styles.container}>
+        <div className={styles.card}>
+          <h2 className={styles.loginLabel}>Вход в аккаунт</h2>
+          <div className={styles.loginForm}>
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className={styles.input}
+              type="email"
+              name="email"
+              placeholder="Логин"
+              required
+            />
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className={styles.input}
+              type="password"
+              name="password"
+              placeholder="Пароль"
+              required
+            />
+            <button
+              className={styles.loginButton}
+              onClick={handleLogin}
+              type="submit"
+            >
+              Войти
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

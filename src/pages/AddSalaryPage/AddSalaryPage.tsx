@@ -153,246 +153,254 @@ const AddSalaryPage = () => {
   };
 
   return (
-    <Box
-      sx={{
-        width: isNonMobile ? '50%' : '93%',
-        p: '2rem',
-        m: '2rem auto',
-        borderRadius: '1.5rem',
-        backgroundColor: theme.palette.background.default,
-      }}
-    >
-      <Typography fontWeight="500" variant="h5" sx={{ mb: '1.5rem' }}>
-        Welcome to Levels
-      </Typography>
-      <Formik
-        onSubmit={handleFormSubmit}
-        initialValues={InitialValues}
-        validationSchema={addSalarySchema}
+    <>
+      <Typography variant="h2">Add your salary</Typography>
+
+      <Box
+        sx={{
+          width: isNonMobile ? '50%' : '93%',
+          p: '2rem',
+          m: '2rem auto',
+          borderRadius: '1.5rem',
+          backgroundColor: theme.palette.background.default,
+        }}
       >
-        {({ errors, touched, handleBlur, handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
-            <Box
-              display="grid"
-              gap="30px"
-              gridTemplateColumns={
-                isNonMobile ? 'repeat(2, minmax(0, 1fr)' : 'repeat(1, 1fr)'
-              }
-              sx={{
-                '& > div': { gridColumn: isNonMobile ? undefined : 'span 4' },
-              }}
-            >
-              <TextField
-                label="Total Work Experience (in years)"
-                onBlur={handleBlur}
-                onChange={(e) => setYoe(Number(e.target.value))}
-                value={yoe}
-                type="number"
-                name="totalExperience"
-                error={Boolean(touched.yoe) && Boolean(errors.yoe)}
-                helperText={touched.yoe && errors.yoe}
-                sx={{ gridColumn: 'span 2' }}
-              />
-              <TextField
-                label="Experience in this company (in years)"
-                onBlur={handleBlur}
-                onChange={(e) => setYac(Number(e.target.value))}
-                value={yac}
-                type="number"
-                name="companyExperience"
-                error={Boolean(touched.yac) && Boolean(errors.yac)}
-                helperText={touched.yac && errors.yac}
-                sx={{ gridColumn: 'span 2' }}
-              />
-              <TextField
-                label="Base Salary (a year)"
-                type="number"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">KZT</InputAdornment>
-                  ),
+        <Typography fontWeight="500" variant="h5" sx={{ mb: '1.5rem' }}>
+          Welcome to Levels
+        </Typography>
+        <Formik
+          onSubmit={handleFormSubmit}
+          initialValues={InitialValues}
+          validationSchema={addSalarySchema}
+        >
+          {({ errors, touched, handleBlur, handleSubmit }) => (
+            <form onSubmit={handleSubmit}>
+              <Box
+                display="grid"
+                gap="30px"
+                gridTemplateColumns={
+                  isNonMobile ? 'repeat(2, minmax(0, 1fr)' : 'repeat(1, 1fr)'
+                }
+                sx={{
+                  '& > div': { gridColumn: isNonMobile ? undefined : 'span 4' },
                 }}
-                onBlur={handleBlur}
-                onChange={(e) => setBase(Number(e.target.value))}
-                value={base}
-                name="baseSalary"
-                error={
-                  Boolean(touched.salary && touched.salary.base) &&
-                  Boolean(errors.salary && errors.salary.base)
-                }
-                helperText={
-                  touched &&
-                  touched.salary &&
-                  touched.salary.base &&
-                  errors.salary &&
-                  errors.salary.base
-                }
-                sx={{ gridColumn: 'span 2' }}
-              />
-              <TextField
-                label="Bonus (a year)"
-                type="number"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">KZT</InputAdornment>
-                  ),
-                }}
-                onBlur={handleBlur}
-                onChange={(e) => setBonus(Number(e.target.value))}
-                value={bonus}
-                name="bonus"
-                error={
-                  Boolean(touched.salary) &&
-                  Boolean(errors.salary && errors.salary.bonus)
-                }
-                helperText={
-                  touched &&
-                  touched.salary &&
-                  touched.salary.bonus &&
-                  errors.salary &&
-                  errors.salary.bonus
-                }
-                sx={{ gridColumn: 'span 2' }}
-              />
-              <FormControl sx={{ gridColumn: 'span 4' }}>
-                <InputLabel id="demo-multiple-name-label">Company</InputLabel>
-                <Select
-                  open={openCompany}
-                  onOpen={() => setOpenCompany(true)}
-                  onClose={() => setOpenCompany(false)}
-                  labelId="demo-multiple-name-label"
-                  id="demo-multiple-name"
-                  value={selectedValues.company}
-                  onChange={(event) => handleSelectChange(event, 'company')}
-                  input={<OutlinedInput label="Company" />}
-                  MenuProps={MenuProps}
-                  error={touched.company && !selectedValues.company}
-                >
-                  {companies.map((company) => (
-                    <MenuItem
-                      key={company._id}
-                      value={company.name}
-                      style={getStyles(company.name, ['aaa'], theme)}
-                    >
-                      {company.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-                {companies && touched.company && !selectedValues.company && (
-                  <FormHelperText>{errors.company}</FormHelperText>
-                )}
-              </FormControl>
-              <FormControl sx={{ gridColumn: 'span 4' }}>
-                <InputLabel id="demo-multiple-name-label">Location</InputLabel>
-                <Select
-                  open={openLocation}
-                  onOpen={() => setOpenLocation(true)}
-                  onClose={() => setOpenLocation(false)}
-                  labelId="demo-multiple-name-label"
-                  id="demo-multiple-name"
-                  value={selectedValues.location}
-                  onChange={(event) => handleSelectChange(event, 'location')}
-                  input={<OutlinedInput label="Location" />}
-                  MenuProps={MenuProps}
-                  error={touched.location && !selectedValues.location}
-                >
-                  {locations.map((location) => (
-                    <MenuItem
-                      key={location._id}
-                      value={location.name}
-                      style={getStyles(location.name, ['aaa'], theme)}
-                    >
-                      {location.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-                {locations && touched.location && !selectedValues.location && (
-                  <FormHelperText>{errors.location}</FormHelperText>
-                )}
-              </FormControl>
-              <FormControl sx={{ gridColumn: 'span 4' }}>
-                <InputLabel id="demo-multiple-name-label">
-                  Specialization
-                </InputLabel>
-                <Select
-                  open={openSpecialization}
-                  onOpen={() => setOpenSpecialization(true)}
-                  onClose={() => setOpenSpecialization(false)}
-                  labelId="demo-multiple-name-label"
-                  id="demo-multiple-name"
-                  value={selectedValues.specialization}
-                  onChange={(event) =>
-                    handleSelectChange(event, 'specialization')
-                  }
-                  input={<OutlinedInput label="Sepcialization" />}
-                  MenuProps={MenuProps}
+              >
+                <TextField
+                  label="Total Work Experience (in years)"
+                  onBlur={handleBlur}
+                  onChange={(e) => setYoe(Number(e.target.value))}
+                  value={yoe}
+                  type="number"
+                  name="totalExperience"
+                  error={Boolean(touched.yoe) && Boolean(errors.yoe)}
+                  helperText={touched.yoe && errors.yoe}
+                  sx={{ gridColumn: 'span 2' }}
+                />
+                <TextField
+                  label="Experience in this company (in years)"
+                  onBlur={handleBlur}
+                  onChange={(e) => setYac(Number(e.target.value))}
+                  value={yac}
+                  type="number"
+                  name="companyExperience"
+                  error={Boolean(touched.yac) && Boolean(errors.yac)}
+                  helperText={touched.yac && errors.yac}
+                  sx={{ gridColumn: 'span 2' }}
+                />
+                <TextField
+                  label="Base Salary (a year)"
+                  type="number"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">KZT</InputAdornment>
+                    ),
+                  }}
+                  onBlur={handleBlur}
+                  onChange={(e) => setBase(Number(e.target.value))}
+                  value={base}
+                  name="baseSalary"
                   error={
-                    touched.specialization && !selectedValues.specialization
+                    Boolean(touched.salary && touched.salary.base) &&
+                    Boolean(errors.salary && errors.salary.base)
                   }
-                >
-                  {specializations.map((spec) => (
-                    <MenuItem
-                      key={spec.name}
-                      value={spec.name}
-                      style={getStyles(spec.name, ['aaa'], theme)}
-                    >
-                      {spec.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-                {specializations &&
-                  touched.specialization &&
-                  !selectedValues.specialization && (
-                    <FormHelperText>{errors.specialization}</FormHelperText>
+                  helperText={
+                    touched &&
+                    touched.salary &&
+                    touched.salary.base &&
+                    errors.salary &&
+                    errors.salary.base
+                  }
+                  sx={{ gridColumn: 'span 2' }}
+                />
+                <TextField
+                  label="Bonus (a year)"
+                  type="number"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">KZT</InputAdornment>
+                    ),
+                  }}
+                  onBlur={handleBlur}
+                  onChange={(e) => setBonus(Number(e.target.value))}
+                  value={bonus}
+                  name="bonus"
+                  error={
+                    Boolean(touched.salary) &&
+                    Boolean(errors.salary && errors.salary.bonus)
+                  }
+                  helperText={
+                    touched &&
+                    touched.salary &&
+                    touched.salary.bonus &&
+                    errors.salary &&
+                    errors.salary.bonus
+                  }
+                  sx={{ gridColumn: 'span 2' }}
+                />
+                <FormControl sx={{ gridColumn: 'span 4' }}>
+                  <InputLabel id="demo-multiple-name-label">Company</InputLabel>
+                  <Select
+                    open={openCompany}
+                    onOpen={() => setOpenCompany(true)}
+                    onClose={() => setOpenCompany(false)}
+                    labelId="demo-multiple-name-label"
+                    id="demo-multiple-name"
+                    value={selectedValues.company}
+                    onChange={(event) => handleSelectChange(event, 'company')}
+                    input={<OutlinedInput label="Company" />}
+                    MenuProps={MenuProps}
+                    error={touched.company && !selectedValues.company}
+                  >
+                    {companies.map((company) => (
+                      <MenuItem
+                        key={company._id}
+                        value={company.name}
+                        style={getStyles(company.name, ['aaa'], theme)}
+                      >
+                        {company.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  {companies && touched.company && !selectedValues.company && (
+                    <FormHelperText>{errors.company}</FormHelperText>
                   )}
-              </FormControl>
-              <FormControl sx={{ gridColumn: 'span 4' }}>
-                <InputLabel id="demo-multiple-name-label">Grade</InputLabel>
-                <Select
-                  open={openGrade}
-                  onOpen={() => setOpenGrade(true)}
-                  onClose={() => setOpenGrade(false)}
-                  labelId="demo-multiple-name-label"
-                  id="demo-multiple-name"
-                  value={selectedValues.grade}
-                  onChange={(event) => handleSelectChange(event, 'grade')}
-                  input={<OutlinedInput label="Grade" />}
-                  MenuProps={MenuProps}
-                  error={touched.grade && !selectedValues.grade}
-                >
-                  {grades.map((gr, ind) => (
-                    <MenuItem
-                      key={ind}
-                      value={gr}
-                      style={getStyles(gr, ['aaa'], theme)}
-                    >
-                      {gr}
-                    </MenuItem>
-                  ))}
-                </Select>
-                {grades && touched.grade && !selectedValues.grade && (
-                  <FormHelperText>{errors.grade}</FormHelperText>
-                )}
-              </FormControl>
-            </Box>
-            <Button
-              fullWidth
-              onClick={handleFormSubmit}
-              type="submit"
-              sx={{
-                m: '2rem 0',
-                p: '1rem',
-                backgroundColor: palette.primary.main,
-                color: theme.palette.background.default,
-                '&:hover': { color: palette.primary.main },
-              }}
-            >
-              Add Salary
-            </Button>
-          </form>
-        )}
-      </Formik>
-    </Box>
+                </FormControl>
+                <FormControl sx={{ gridColumn: 'span 4' }}>
+                  <InputLabel id="demo-multiple-name-label">
+                    Location
+                  </InputLabel>
+                  <Select
+                    open={openLocation}
+                    onOpen={() => setOpenLocation(true)}
+                    onClose={() => setOpenLocation(false)}
+                    labelId="demo-multiple-name-label"
+                    id="demo-multiple-name"
+                    value={selectedValues.location}
+                    onChange={(event) => handleSelectChange(event, 'location')}
+                    input={<OutlinedInput label="Location" />}
+                    MenuProps={MenuProps}
+                    error={touched.location && !selectedValues.location}
+                  >
+                    {locations.map((location) => (
+                      <MenuItem
+                        key={location._id}
+                        value={location.name}
+                        style={getStyles(location.name, ['aaa'], theme)}
+                      >
+                        {location.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  {locations &&
+                    touched.location &&
+                    !selectedValues.location && (
+                      <FormHelperText>{errors.location}</FormHelperText>
+                    )}
+                </FormControl>
+                <FormControl sx={{ gridColumn: 'span 4' }}>
+                  <InputLabel id="demo-multiple-name-label">
+                    Specialization
+                  </InputLabel>
+                  <Select
+                    open={openSpecialization}
+                    onOpen={() => setOpenSpecialization(true)}
+                    onClose={() => setOpenSpecialization(false)}
+                    labelId="demo-multiple-name-label"
+                    id="demo-multiple-name"
+                    value={selectedValues.specialization}
+                    onChange={(event) =>
+                      handleSelectChange(event, 'specialization')
+                    }
+                    input={<OutlinedInput label="Sepcialization" />}
+                    MenuProps={MenuProps}
+                    error={
+                      touched.specialization && !selectedValues.specialization
+                    }
+                  >
+                    {specializations.map((spec) => (
+                      <MenuItem
+                        key={spec.name}
+                        value={spec.name}
+                        style={getStyles(spec.name, ['aaa'], theme)}
+                      >
+                        {spec.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  {specializations &&
+                    touched.specialization &&
+                    !selectedValues.specialization && (
+                      <FormHelperText>{errors.specialization}</FormHelperText>
+                    )}
+                </FormControl>
+                <FormControl sx={{ gridColumn: 'span 4' }}>
+                  <InputLabel id="demo-multiple-name-label">Grade</InputLabel>
+                  <Select
+                    open={openGrade}
+                    onOpen={() => setOpenGrade(true)}
+                    onClose={() => setOpenGrade(false)}
+                    labelId="demo-multiple-name-label"
+                    id="demo-multiple-name"
+                    value={selectedValues.grade}
+                    onChange={(event) => handleSelectChange(event, 'grade')}
+                    input={<OutlinedInput label="Grade" />}
+                    MenuProps={MenuProps}
+                    error={touched.grade && !selectedValues.grade}
+                  >
+                    {grades.map((gr, ind) => (
+                      <MenuItem
+                        key={ind}
+                        value={gr}
+                        style={getStyles(gr, ['aaa'], theme)}
+                      >
+                        {gr}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  {grades && touched.grade && !selectedValues.grade && (
+                    <FormHelperText>{errors.grade}</FormHelperText>
+                  )}
+                </FormControl>
+              </Box>
+              <Button
+                fullWidth
+                onClick={handleFormSubmit}
+                type="submit"
+                sx={{
+                  m: '2rem 0',
+                  p: '1rem',
+                  backgroundColor: palette.primary.main,
+                  color: theme.palette.background.default,
+                  '&:hover': { color: palette.primary.main },
+                }}
+              >
+                Add Salary
+              </Button>
+            </form>
+          )}
+        </Formik>
+      </Box>
+    </>
   );
 };
 

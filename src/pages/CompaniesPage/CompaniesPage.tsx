@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,10 +8,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
+import Typography from '@mui/material/Typography';
 import { AppDispatch, RootState } from '../../store/store.ts';
 import { addToComparison } from '../../store/slices/comparasionSlice.ts';
 import styles from './CompaniesPage.module.css';
-import { useNavigate } from 'react-router-dom';
 
 export default function CompaniesPage() {
   const dispatch: AppDispatch = useDispatch();
@@ -29,7 +30,7 @@ export default function CompaniesPage() {
 
   return (
     <>
-      <h2 className={styles.title}>Companies List</h2>
+      <Typography variant="h2">Companies List</Typography>
 
       <TableContainer
         className={styles.tableContainer}
