@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { RootState } from '../store/store.ts';
 import { deleteFromComparison } from '../store/slices/comparasionSlice.ts';
+import { getAverageSalary } from '../helpers/getAverageSalary.ts';
 
 export const CompanyComparison = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,9 @@ export const CompanyComparison = () => {
   );
   const companiesList = useSelector(
     (state: RootState) => state.companiesListReducer.companiesList
+  );
+  const { salariesList } = useSelector(
+    (state: RootState) => state.salariesListReducer
   );
 
   const comparedCompaniesList = companiesList.filter((company) =>
@@ -40,22 +44,33 @@ export const CompanyComparison = () => {
           <TableHead>
             <TableRow>
               <TableCell>Company name</TableCell>
+              <TableCell>Average base salary</TableCell>
+              <TableCell>Average bonus salary</TableCell>
+              <TableCell>Amount of data entries</TableCell>
               <TableCell>Delete company</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {comparedCompaniesList.map((company) => (
-              <TableRow key={company._id}>
-                <TableCell component="th" scope="row">
-                  {company.name}
-                </TableCell>
-                <TableCell>
-                  <Button onClick={() => handleDelete(company._id)}>
-                    Delete
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+            {comparedCompaniesList.map((company) => {
+              const { averageBaseSalary, averageBonusSalary, iterations } =
+                getAverageSalary(company, salariesList);
+
+              return (
+                <TableRow key={company._id}>
+                  <TableCell component="th" scope="row">
+                    {company.name}
+                  </TableCell>
+                  <TableCell>{averageBaseSalary || 'N/A'}</TableCell>
+                  <TableCell>{averageBonusSalary || 'N/A'}</TableCell>
+                  <TableCell>{iterations}</TableCell>
+                  <TableCell>
+                    <Button onClick={() => handleDelete(company._id)}>
+                      Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </TableContainer>
