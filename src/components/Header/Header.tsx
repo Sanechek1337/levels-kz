@@ -5,11 +5,12 @@ import Toolbar from '@mui/material/Toolbar';
 import { RootState } from '../../store/store.ts';
 import { logout } from '../../store/slices/authSlice.ts';
 import styles from './Header.module.css';
+import { Button } from '@mui/material';
 
 export function Header() {
   const dispatch = useDispatch();
 
-  const { isAuthenticated } = useSelector(
+  const { isAuthenticated, userEmail } = useSelector(
     (state: RootState) => state.authReducer
   );
 
@@ -30,6 +31,7 @@ export function Header() {
             <span className={styles.logo_text}>Levels</span>
           </div>
         </NavLink>
+
         <nav className={styles.links}>
           <NavLink className={styles.link} to="/add-salary">
             Add
@@ -43,9 +45,10 @@ export function Header() {
         </nav>
 
         {isAuthenticated ? (
-          <p className={styles.link} onClick={handleLogout}>
-            Logout
-          </p>
+          <div className={styles.logoutBlock}>
+            <p>{userEmail}</p>
+            <Button onClick={handleLogout}>Logout</Button>
+          </div>
         ) : (
           <NavLink className={styles.link} to="/login">
             Login

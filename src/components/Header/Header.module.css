@@ -1,5 +1,5 @@
 .header {
-  padding: 10px 40px;
+  padding: 10px 40px !important;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -35,14 +35,14 @@
   cursor: pointer;
 }
 
-.links .link {
+.link {
   text-decoration: none;
   color: #ffffff;
   font-weight: bold;
   position: relative;
 }
 
-.links .link:before {
+.link:before {
   content: '';
   position: absolute;
   width: 100%;
@@ -55,28 +55,21 @@
   transition: all 0.3s ease-in-out;
 }
 
-.links .link:hover:before {
+.link:hover:before {
   visibility: visible;
   transform: scaleX(1);
 }
 
-.links .link:hover {
+.link:hover {
   color: #ffc107;
-}
-
-.MuiAutocomplete {
-  min-width: 300px;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  border: 1px solid #fff;
-  border-radius: 4px;
 }
 
 .iconColor {
   color: #fff;
 }
 
-.MuiInputBaseRoot input {
-  color: #fff;
+.logoutBlock {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
