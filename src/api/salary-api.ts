@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 import { salaryType } from '../types/salaryTypes.ts';
 
 export const salaryApi = {
-  getSalaries(): Promise<AxiosResponse<salaryType>> {
+  getSalaries(): Promise<AxiosResponse<salaryType[]>> {
     return instance.get('salaries');
   },
 
