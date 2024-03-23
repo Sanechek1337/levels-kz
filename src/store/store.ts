@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import comparasionReducer from './slices/comparasionSlice';
 import companiesListReducer from './slices/companiesListSlice';
+import salariesListReducer from './slices/salariesSlice.ts';
 import authReducer from './slices/authSlice.ts';
 
 export const store = configureStore({
@@ -8,6 +9,7 @@ export const store = configureStore({
     comparasionReducer,
     companiesListReducer,
     authReducer,
+    salariesListReducer,
   },
 });
 
