@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Formik } from 'formik';
 import {
   Box,
   useTheme,
@@ -15,7 +17,6 @@ import {
   SelectChangeEvent,
   Theme,
 } from '@mui/material';
-import { Formik } from 'formik/dist';
 import FormHelperText from '@mui/material/FormHelperText';
 import { addSalarySchema } from './AddSalarySchema';
 import { InitialValues } from './InitialValues';
@@ -24,19 +25,11 @@ import { specializationsApi } from '../../api/specializations-api.ts';
 import { gradesApi } from '../../api/grades-api.ts';
 import { companiesApi } from '../../api/companies-api.ts';
 import { salaryApi } from '../../api/salary-api.ts';
-import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store.ts';
+import { companyType } from '../../types/companyTypes.ts';
+import { locationType } from '../../types/locationTypes.ts';
+import { specializationType } from '../../types/specializationTypes.ts';
 
-interface Location {
-  _id: string;
-  name: string;
-}
-
-interface Company {
-  _id: string;
-  name: string;
-  location: string;
-}
 interface SelectedValues {
   company: string;
   location: string;
@@ -81,10 +74,12 @@ const AddSalaryPage = () => {
   const [yac, setYac] = useState(0);
   const [base, setBase] = useState(0);
   const [bonus, setBonus] = useState(0);
-  const [companies, setCompanies] = useState<Company[]>([]);
-  const [locations, setLocations] = useState<Location[]>([]);
-  const [specializations, setSpecializations] = useState<Location[]>([]);
-  const [grades, setGrades] = useState([]);
+  const [companies, setCompanies] = useState<companyType[]>([]);
+  const [locations, setLocations] = useState<locationType[]>([]);
+  const [specializations, setSpecializations] = useState<specializationType[]>(
+    []
+  );
+  const [grades, setGrades] = useState<string[]>([]);
   const [openCompany, setOpenCompany] = useState(false);
   const [openLocation, setOpenLocation] = useState(false);
   const [openSpecialization, setOpenSpecialization] = useState(false);
