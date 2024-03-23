@@ -1,47 +1,17 @@
-import { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import SearchIcon from '@mui/icons-material/Search';
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
-import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store.ts';
 import { logout } from '../../store/slices/authSlice.ts';
-import { companiesApi } from '../../api/companies-api.ts';
 import styles from './Header.module.css';
-import { companyType } from '../../types/companyTypes.ts';
 
 export function Header() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { isAuthenticated } = useSelector(
     (state: RootState) => state.authReducer
   );
-
-  const [companies1, setCompanies1] = useState<companyType[]>([]);
-
-  useEffect(() => {
-    companiesApi.getCompanies().then((res) => {
-      setCompanies1(res.data);
-    });
-  }, []);
-
-  const handleOptionChange = (value: string) => {
-    if (value) {
-      const selectedCompany = companies1.find(
-        (company) => company.name === value
-      );
-      if (selectedCompany) {
-        navigate(`/company-page/${selectedCompany._id}`);
-      }
-    }
-  };
-
-  const filterOptions = createFilterOptions({
-    limit: 5,
-  });
 
   const handleLogout = () => {
     dispatch(logout());
@@ -60,7 +30,7 @@ export function Header() {
             <span className={styles.logo_text}>Levels</span>
           </div>
         </NavLink>
-        <ul className={styles.links}>
+        <nav className={styles.links}>
           <NavLink className={styles.link} to="/add-salary">
             Add
           </NavLink>
@@ -70,37 +40,17 @@ export function Header() {
           <NavLink className={styles.link} to="/company-comparison">
             Company comparison
           </NavLink>
-          {isAuthenticated ? (
-            <p className={styles.link} onClick={handleLogout}>
-              Logout
-            </p>
-          ) : (
-            <NavLink className={styles.link} to="/login">
-              Login
-            </NavLink>
-          )}
-        </ul>
+        </nav>
 
-        <Autocomplete
-          className={styles.MuiAutocomplete}
-          freeSolo
-          id="free-solo-2-demo"
-          disableClearable
-          filterOptions={filterOptions}
-          onChange={(_, value) => handleOptionChange(value as string)}
-          options={companies1.map((company) => company.name)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              InputProps={{
-                ...params.InputProps,
-                type: 'search',
-                startAdornment: <SearchIcon className={styles.iconColor} />,
-              }}
-              className={styles.MuiInputBaseRoot}
-            />
-          )}
-        />
+        {isAuthenticated ? (
+          <p className={styles.link} onClick={handleLogout}>
+            Logout
+          </p>
+        ) : (
+          <NavLink className={styles.link} to="/login">
+            Login
+          </NavLink>
+        )}
       </Toolbar>
     </AppBar>
   );
