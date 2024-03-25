@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Table from '@mui/material/Table';
@@ -12,7 +11,6 @@ import { Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { AppDispatch, RootState } from '../../store/store.ts';
 import { addToComparison } from '../../store/slices/comparasionSlice.ts';
-import { getCompaniesList } from '../../store/slices/companiesListSlice.ts';
 import styles from './CompaniesPage.module.css';
 
 export default function CompaniesPage() {
@@ -29,10 +27,6 @@ export default function CompaniesPage() {
   const goToCompanyPage = (companyId: string) => {
     navigate(`/company-page/${companyId}`);
   };
-
-  useEffect(() => {
-    dispatch(getCompaniesList());
-  }, []);
 
   return (
     <>

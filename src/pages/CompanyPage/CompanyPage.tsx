@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,14 +9,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import { AppDispatch, RootState } from '../../store/store';
-import { getCompaniesList } from '../../store/slices/companiesListSlice.ts';
-import { getSalariesList } from '../../store/slices/salariesSlice.ts';
+import { RootState } from '../../store/store';
 import { filterByCompany } from '../../helpers/filterByCompany.ts';
 import styles from './CompanyPage.module.css';
 
 export const CompanyPage = () => {
-  const dispatch: AppDispatch = useDispatch();
   const { id } = useParams();
 
   const company = useSelector((state: RootState) =>
@@ -37,11 +33,6 @@ export const CompanyPage = () => {
   ) : (
     <Typography variant="h2">Company Not Found!</Typography>
   );
-
-  useEffect(() => {
-    dispatch(getCompaniesList());
-    dispatch(getSalariesList());
-  }, []);
 
   return (
     <Box sx={{ width: '65%', margin: '0 auto' }}>
