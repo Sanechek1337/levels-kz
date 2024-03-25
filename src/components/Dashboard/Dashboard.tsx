@@ -38,7 +38,7 @@ export function Dashboard() {
             sx={cardStyles}
           />
         </Grid>
-        <Grid item lg={12} md={12} xs={12}>
+        <Grid item lg={10} md={12} xs={12}>
           <AllSalariesList salariesList={salariesList} />
         </Grid>
       </Grid>
