@@ -15,5 +15,11 @@ export const theme = createTheme({
       color: '#fff',
       textAlign: 'center',
     },
+    h3: {
+      fontSize: '28px',
+      fontWeight: 700,
+      color: '#fff',
+      textAlign: 'center',
+    },
   },
 });
