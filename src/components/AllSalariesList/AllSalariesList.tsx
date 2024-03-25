@@ -6,7 +6,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { salaryType } from '../../types/salaryTypes.ts';
 import styles from './AllSalariesList.module.css';
@@ -20,32 +19,37 @@ const AllSalariesList = ({ salariesList }: AllSalariesListProps) => {
     <Box>
       <Typography variant="h3">All salaries List</Typography>
 
-      <TableContainer
-        className={styles.tableContainer}
-        component={Paper}
-        sx={{ width: 'fit-content' }}
-      >
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <TableContainer component={Paper} className={styles.tableContainer}>
+        <Table aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>Company</TableCell>
-              <TableCell>Add to compare</TableCell>
-              <TableCell>Go to company page</TableCell>
+              <TableCell>Person location</TableCell>
+              <TableCell>Specialization</TableCell>
+              <TableCell>Base salary</TableCell>
+              <TableCell>Bonus salary</TableCell>
+              <TableCell>Total experience</TableCell>
+              <TableCell>Company exp.</TableCell>
+              <TableCell>Grade</TableCell>
+              <TableCell>Created at</TableCell>
             </TableRow>
           </TableHead>
+
           <TableBody>
             {salariesList.map((salaryData) => (
-              <TableRow key={company._id}>
-                <TableCell component="th" scope="row">
-                  {company.name}
-                </TableCell>
+              <TableRow key={salaryData._id}>
+                <TableCell>{salaryData.company?.name || 'N/A'}</TableCell>
+                <TableCell>{salaryData.location?.name || 'N/A'}</TableCell>
                 <TableCell>
-                  <Button onClick={() => AddToCompare(company._id)}>Add</Button>
+                  {salaryData.specialization?.name || 'N/A'}
                 </TableCell>
+                <TableCell>{salaryData.salary?.base || 'N/A'}</TableCell>
+                <TableCell>{salaryData.salary?.bonus || 'N/A'}</TableCell>
+                <TableCell>{salaryData?.yoe || 'N/A'}</TableCell>
+                <TableCell>{salaryData?.yac || 'N/A'}</TableCell>
+                <TableCell>{salaryData?.grade || 'N/A'}</TableCell>
                 <TableCell>
-                  <Button onClick={() => goToCompanyPage(company._id)}>
-                    Go to
-                  </Button>
+                  {salaryData?.created?.toString().slice(0, 10) || 'N/A'}
                 </TableCell>
               </TableRow>
             ))}
